@@ -3,14 +3,15 @@ package useful.controller;
 import java.util.*;
 
 import useful.model.Donut;
-import useful.view.popupDisplay;
+import useful.view.PopupDisplay;
 
 public class ToolController {
 	//Declares the donut List to store the donuts that we create
 	private List<Donut> donutList;
-	private popupDisplay display;
+	private PopupDisplay display;
+	
 	public ToolController() {
-		display = new popupDisplay();
+		display = new PopupDisplay();
 		donutList = new ArrayList<Donut>();
 	}
 	
@@ -20,8 +21,11 @@ public class ToolController {
 		donutList.add(temp);
 		display.displayText(donutList.toString());
 		fillTheList();
-		showTheList();
+		//showTheList();
+		//changeTheList();
+		practice();
 	}
+	
 	private void showTheList() {
 		String favorite = "free donut";
 		for(Donut currentFlavor: donutList) {
@@ -32,6 +36,7 @@ public class ToolController {
 			}
 		}
 	}
+	
 	private void fillTheList()
 	{
 		Donut jellyFilled = new Donut("jelly filled");
@@ -49,4 +54,44 @@ public class ToolController {
 		display.displayText(donutList.toString());
 
 	}
+	
+	private void changeTheList() {
+		display.displayText("The list is this big: " + donutList.size());
+		Donut removed = donutList.remove(0);
+		display.displayText(removed.getFlavor() + " was removed from the list");
+		display.displayText("Now it is this big: " + donutList.size());
+	}
+
+	private void practice() {
+		display.displayText(donutList.toString());
+		//Add stuff
+		Donut bostonCreampie = new Donut("Boston Cream Pie");
+		Donut betterJellyFilled = new Donut("special jelly filled");
+		donutList.add(bostonCreampie);
+		donutList.add(0,betterJellyFilled);
+		donutList.add(new Donut("donut hole"));
+		display.displayText(donutList.toString());
+		
+		//remove stuff
+		donutList.remove(0);
+		
+		//get stuff
+		String choice = display.getResponse("What donut number do you want? 0-" + donutList.size());
+		int validInteger = Integer.parseInt(choice);
+		display.displayText(donutList.get(validInteger).toString());
+		
+		
+		//Loop backwards
+		for(int i = donutList.size(); i >= 0; i--) {
+			display.displayText(donutList.get(i-1).toString());
+		}
+	}
+
+	public ArrayList<Donut> getDonutList(){
+		return (ArrayList<Donut>) donutList;
+	}
+	public PopupDisplay getDisplay() {
+		return display;
+	}
 }
+

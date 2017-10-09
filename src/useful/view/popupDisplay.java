@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
  * @author Connor O'Leary
  * @version 1.0 10/3/27
  */
-public class popupDisplay {
+public class PopupDisplay {
 	public void displayText(String message) {
 		JOptionPane.showMessageDialog(null, message);
 	}
