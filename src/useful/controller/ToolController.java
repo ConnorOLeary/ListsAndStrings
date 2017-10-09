@@ -14,7 +14,22 @@ public class ToolController {
 		display = new PopupDisplay();
 		donutList = new ArrayList<Donut>();
 	}
-	
+	private boolean isValid(String input, List<Donut> donutList) {
+		boolean parsed = false;
+		try {
+			int validInteger = Integer.parseInt(input);
+			if(0 <= validInteger && validInteger < donutList.size()) {
+				parsed = true;
+			}else {
+				display.displayText("invalid index");
+			}
+			
+		}
+		catch(NumberFormatException error) {
+			display.displayText("Thats not a number");
+		}
+		return parsed;
+	}
 	public void start() {
 		//Creates a donut and adds it to the list
 		Donut temp = new Donut();
@@ -77,19 +92,23 @@ public class ToolController {
 		
 		//get stuff
 		String choice = display.getResponse("What donut number do you want? 0-" + donutList.size());
-		int validInteger = Integer.parseInt(choice);
-		display.displayText(donutList.get(validInteger).toString());
+		if(isValid(choice, donutList)) {
+			int validInteger = Integer.parseInt(choice);
+			display.displayText(donutList.get(validInteger).toString());
+		}
 		
 		
 		//Loop backwards
-		for(int i = donutList.size(); i >= 0; i--) {
+		for(int i = donutList.size(); i > 0; i--) {
 			display.displayText(donutList.get(i-1).toString());
 		}
 	}
 
 	public ArrayList<Donut> getDonutList(){
+
 		return (ArrayList<Donut>) donutList;
 	}
+	
 	public PopupDisplay getDisplay() {
 		return display;
 	}
